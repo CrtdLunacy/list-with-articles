@@ -1,0 +1,12 @@
+.filter {
+  background-color: transparent;
+  padding: 11px 10px;
+  border: 1px solid white;
+  cursor: pointer;
+}
+
+.filter:hover,
+.active{
+  background-color: white;
+  color: black;
+}

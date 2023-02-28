@@ -1,0 +1,37 @@
+.cardWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 23%;
+}
+
+.card {
+  padding: 32px 16px;
+  background-color: var(--bg-card);
+  flex-grow: 1;
+  min-height: 304px;
+  display: flex;
+  flex-direction: column;
+}
+.locate {
+  display: flex;
+  font: var(--font-s);
+  color: var(--text-gray);
+  margin-bottom: 8px;
+}
+
+.title {
+  font: var(--font-m);
+  color: black;
+}
+
+.link {
+  font: var(--font-xs);
+  color: var(--text-link);
+  margin-top: auto;
+}
+
+.date {
+  margin-top: 5px;
+  color: var(--text-light-gray);
+  align-self: flex-end;
+}
