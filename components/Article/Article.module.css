@@ -1,0 +1,85 @@
+.artHeader {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  font: var(--font-s);
+  padding: 40px;
+}
+
+.close {cursor: pointer; position: absolute; top: 50px; right: 100px;}
+.close:before, .close:after {content: ""; position: absolute; width: 45px; height: 4px; background: #2B8580;}
+.close:before {transform: rotate(45deg);}
+.close:after {transform: rotate(-45deg);}
+.close:hover:before, .close:hover:after { background: #113433;}
+
+.application {
+  background-color: #2B8580;
+  color: white;
+  padding: 11px 10px;
+  margin-right: auto;
+  margin-bottom: 35px;
+}
+
+.locate {
+  color: var(--text-gray);
+  font: var(--font-m);
+  margin-bottom: 10px;
+}
+
+.title {
+  font: var(--font-l);
+}
+
+.artBody {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  background-color: #2B8580;
+  padding: 40px 40px;
+  color: white;
+}
+
+.details {
+  display: flex;
+  text-align: center;
+  width: 33.3%;
+  flex-direction: column;
+  font: var(--font-xs);
+  font-weight: 400;
+}
+
+.detailsName {
+  font: var(--font-s);
+  margin-bottom: 10px;
+}
+
+.artFoot {
+  padding: 40px;
+}
+
+.description {
+  font: var(--font-xs);
+  font-weight: 400;
+}
+
+@media only screen and (max-width: 1370px) {
+  .artHeader,
+  .artBody,
+  .artFoot {
+    padding: 20px;
+  }
+  .title {
+    font: var(--font-m);
+  }
+  .detailsName{
+    font: var(--font-xs);
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .artHeader,
+  .artBody,
+  .artFoot {
+    padding: 30px;
+  }
+}

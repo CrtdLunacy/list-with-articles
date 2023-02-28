@@ -1,11 +1,12 @@
 'use client'
 
 import {MediaGroupsModel} from "@/types/db.modal";
-import CardItem from "@/app/components/Card/CardItem";
+import CardItem from "@/components/Card/CardItem";
 import styles from './CardList.module.css';
-import React, {useEffect, useState} from "react";
-import Modal from "@/app/components/Modal/Modal";
+import React, {useEffect, useRef, useState} from "react";
+import Modal from "@/components/Modal/Modal";
 import { useSearchParams } from 'next/navigation';
+import Article from "@/components/Article/Article";
 
 interface CardProps {
   data: MediaGroupsModel[];
@@ -13,26 +14,56 @@ interface CardProps {
 
 const CardList = ({data}: CardProps) => {
   const [articles, setArticles] = useState<MediaGroupsModel[]>([]);
+  const [range, setRange] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+  const [hideState, setHideState] = useState(false);
   const searchParams = useSearchParams();
   const article = searchParams.get('article') || null;
-  console.log(article);
+  const ref: any = useRef();
+
+  const observer = new ResizeObserver((entries) => {
+    const { width } = entries[0].contentRect;
+    if(width < 800) setIsMobile(true)
+  });
+
+  const observerRef = useRef(observer);
+
+  useEffect(() => {
+    observerRef.current.observe(ref.current);
+    }, [observerRef]);
 
   useEffect(() => {
     if(data.length < 8) {
       setArticles(data);
     }
     setArticles(data.slice(0, 8));
-  }, [])
+  }, [data])
 
   const handleClickToShow = () => {
     setArticles(data);
+    setHideState(true);
+  }
+
+  const handleClickToShowMobile = () => {
+    if(articles.length == data.length) {
+      setHideState(true);
+      return;
+    }
+    const newData = data.slice(range, range+8);
+    setRange(prev => prev + 8);
+    setArticles([...articles, ...newData]);
+  }
+
+  const handleClickToHide = () => {
+    setArticles(data.slice(0, 8));
+    setHideState(false);
   }
 
   return (
-    <div className={styles.listModule}>
+    <div className={styles.listModule} ref={ref}>
       {article && (
         <Modal>
-          привет
+          <Article data={data}/>
         </Modal>
       )}
       <div className={styles.listWrapper}>
@@ -44,12 +75,22 @@ const CardList = ({data}: CardProps) => {
         ))}
       </div>
 
-      {articles.length >= 8 && (
+      {articles.length >= 8 && !hideState &&  (
         <button
           className={styles.left}
-          onClick={handleClickToShow}
+          onClick={isMobile ? handleClickToShow : handleClickToShowMobile}
         >
           ПОКАЗАТЬ ВСЕ
+          <span className={styles.right}></span>
+        </button>
+      )}
+
+      {articles.length >= 8 && hideState && (
+        <button
+          className={styles.left}
+          onClick={handleClickToHide}
+        >
+          СКРЫТЬ ВСЕ
           <span className={styles.right}></span>
         </button>
       )}

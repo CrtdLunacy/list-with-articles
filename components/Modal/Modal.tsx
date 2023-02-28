@@ -1,5 +1,6 @@
 import React, {MouseEvent, ReactNode, useCallback, useEffect, useRef, useState} from 'react';
 import styles from "./Modal.module.css";
+import { useRouter } from 'next/navigation';
 
 interface ModalProps {
   children: ReactNode;
@@ -10,26 +11,24 @@ const Modal = (props: ModalProps) => {
   const {
     children, isOpen,
   } = props;
-  const [isClosing, setIsClosing] = useState(false);
+  const router = useRouter();
 
   const handleClosing = () => {
-
+    router.push('/')
   }
 
   const onKeyDown = useCallback((e: globalThis.KeyboardEvent) => {
     if (e.key === 'Escape') {
-      setIsClosing(false);
+      handleClosing()
     }
-  }, [isClosing]);
+  }, []);
 
   useEffect(() => {
-    if (isOpen) {
       window.addEventListener('keydown', onKeyDown);
-    }
     return () => {
       window.removeEventListener('keydown', onKeyDown);
     };
-  }, [isOpen, onKeyDown]);
+  }, []);
 
   const onContentClick = (e: MouseEvent) => {
     e.stopPropagation();
@@ -37,7 +36,7 @@ const Modal = (props: ModalProps) => {
 
   return (
     <div className={`${styles.wrapModal}`}>
-      <div className={styles.overlay}>
+      <div className={styles.overlay} onClick={handleClosing}>
         <div className={styles.content} onClick={onContentClick}>
           {children}
         </div>

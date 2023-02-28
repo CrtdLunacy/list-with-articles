@@ -17,7 +17,7 @@ const CardItem = ({item}: CardItemProps) => {
           {item.city ? <span>{`, ${item.city}`}</span> : null}
         </p>
         <h2 className={styles.title}>{item.title}</h2>
-        <Link className={styles.link} href={`/${item.id}`}>Посмотреть</Link>
+        <Link className={styles.link} href={`/?article=${item.id}`}>Посмотреть</Link>
       </div>
       <span className={styles.date}>
         {item.updated ? `Обновлено ${convertDate(item.updated)}` : `Добавлено ${convertDate(item.created)}`}
