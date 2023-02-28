@@ -22,7 +22,8 @@ const ArticlesWidget = ({data}: ArticlesWidgetProps) => {
   const [filtred, setFiltred] = useState<string[]>([]);
 
   const handleClick = useCallback((e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    setFiltred([...filtred, e.currentTarget.innerText]);
+    const newFilter = Array.from(new Set([...filtred, e.currentTarget.innerText]));
+    setFiltred(newFilter);
   }, [filtred]);
 
   useEffect(() => {
