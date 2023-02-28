@@ -9,11 +9,10 @@ interface FilterItemProps {
 }
 
 const FilterItem = ({item, onClick}: FilterItemProps) => {
-  const [isActive, setIsActive] = useState(false);
 
   return (
     <button
-      className={`${styles.filter} ${isActive && styles.active}`}
+      className={styles.filter}
       onClick={onClick}
     >
       {item}

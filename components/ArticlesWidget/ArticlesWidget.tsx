@@ -9,7 +9,7 @@ import CardList from "@/components/CardList/CardList";
 import {MediaGroupsModel} from "@/types/db.modal";
 import {mapApplicationData} from "@/helpers/mapApplicationData";
 import {sortStringsByCount} from "@/helpers/sortStringsByCount";
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useEffect, useRef, useState} from "react";
 
 interface ArticlesWidgetProps {
   data: MediaGroupsModel[]
@@ -21,7 +21,7 @@ const ArticlesWidget = ({data}: ArticlesWidgetProps) => {
   const filters = sortStringsByCount(filtersUnsort);
   const [filtred, setFiltred] = useState<string[]>([]);
 
-  const handleClick = useCallback((e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleClickFilter = useCallback((e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const newFilter = Array.from(new Set([...filtred, e.currentTarget.innerText]));
     setFiltred(newFilter);
   }, [filtred]);
@@ -50,7 +50,7 @@ const ArticlesWidget = ({data}: ArticlesWidgetProps) => {
             <FilterItem
               key={nanoid()}
               item={item}
-              onClick={handleClick}
+              onClick={handleClickFilter}
             />
           ))}
         </div>
