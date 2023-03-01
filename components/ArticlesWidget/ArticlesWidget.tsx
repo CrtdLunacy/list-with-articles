@@ -22,8 +22,15 @@ const ArticlesWidget = ({data}: ArticlesWidgetProps) => {
   const [filtred, setFiltred] = useState<string[]>([]);
 
   const handleClickFilter = useCallback((e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    const newFilter = Array.from(new Set([...filtred, e.currentTarget.innerText]));
-    setFiltred(newFilter);
+    if(filtred.find(item => item === e.currentTarget.innerText) !== undefined) {
+      const newFilter = filtred.filter(item => item !== e.currentTarget.innerText);
+      setFiltred(newFilter);
+      console.log(newFilter);
+    } else {
+      const newFilter = [...filtred, e.currentTarget.innerText];
+      setFiltred(newFilter);
+      console.log(newFilter)
+    }
   }, [filtred]);
 
   useEffect(() => {
@@ -31,6 +38,8 @@ const ArticlesWidget = ({data}: ArticlesWidgetProps) => {
       let newData = filtred.map(item => Array.from(data).filter(el => el.application === item));
       let newBase = ([] as MediaGroupsModel[]).concat(...newData);
       setBase(newBase);
+    } else {
+      setBase(Array.from(data))
     }
   }, [filtred, data])
 
@@ -64,7 +73,9 @@ const ArticlesWidget = ({data}: ArticlesWidgetProps) => {
       </div>
 
       {/*блок данных*/}
-      <CardList data={base} />
+      <CardList
+        data={base}
+      />
     </div>
   );
 };

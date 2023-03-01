@@ -1,6 +1,6 @@
 'use client'
 
-import React, {Dispatch, SetStateAction, useState} from 'react';
+import React from 'react';
 import styles from './FilterItem.module.css';
 interface FilterItemProps {
   item: string;
@@ -12,7 +12,7 @@ const FilterItem = ({item, onClick}: FilterItemProps) => {
 
   return (
     <button
-      className={styles.filter}
+      className={`${styles.filter}`}
       onClick={onClick}
     >
       {item}

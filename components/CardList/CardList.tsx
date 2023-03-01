@@ -7,6 +7,7 @@ import React, {useEffect, useRef, useState} from "react";
 import Modal from "@/components/Modal/Modal";
 import { useSearchParams } from 'next/navigation';
 import Article from "@/components/Article/Article";
+import {nanoid} from "nanoid";
 
 interface CardProps {
   data: MediaGroupsModel[];
@@ -19,18 +20,15 @@ const CardList = ({data}: CardProps) => {
   const [hideState, setHideState] = useState(false);
   const searchParams = useSearchParams();
   const article = searchParams.get('article') || null;
-  const ref: any = useRef();
-
-  const observer = new ResizeObserver((entries) => {
-    const { width } = entries[0].contentRect;
-    if(width < 800) setIsMobile(true)
-  });
-
-  const observerRef = useRef(observer);
 
   useEffect(() => {
-    observerRef.current.observe(ref.current);
-    }, [observerRef]);
+    const observer = new ResizeObserver((entries) => {
+      const { width } = entries[0].contentRect;
+      if(width < 800) setIsMobile(true)
+    });
+
+    observer.observe(document.body);
+    }, []);
 
   useEffect(() => {
     if(data.length < 8) {
@@ -60,7 +58,7 @@ const CardList = ({data}: CardProps) => {
   }
 
   return (
-    <div className={styles.listModule} ref={ref}>
+    <div className={styles.listModule}>
       {article && (
         <Modal>
           <Article data={data}/>
@@ -69,13 +67,13 @@ const CardList = ({data}: CardProps) => {
       <div className={styles.listWrapper}>
         {articles.map(item => (
               <CardItem
-                key={item.id}
+                key={nanoid()}
                 item={item}
               />
         ))}
       </div>
 
-      {articles.length >= 8 && !hideState &&  (
+      {articles.length >= 8 && !hideState && !isMobile &&  (
         <button
           className={styles.left}
           onClick={isMobile ? handleClickToShow : handleClickToShowMobile}
@@ -91,6 +89,16 @@ const CardList = ({data}: CardProps) => {
           onClick={handleClickToHide}
         >
           СКРЫТЬ ВСЕ
+          <span className={styles.right}></span>
+        </button>
+      )}
+
+      {isMobile && !hideState && (
+        <button
+          className={styles.left}
+          onClick={handleClickToShowMobile}
+        >
+          ПОКАЗАТЬ ЕЩЕ
           <span className={styles.right}></span>
         </button>
       )}

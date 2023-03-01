@@ -38,8 +38,7 @@
 
 @media only screen and (max-width: 1370px) {
   .cardWrapper {
-    width:35%;
-    flex-grow: 1;
+    width:45%;
   }
 }
 

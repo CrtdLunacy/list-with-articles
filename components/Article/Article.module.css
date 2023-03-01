@@ -32,7 +32,6 @@
 
 .artBody {
   display: flex;
-  justify-content: center;
   gap: 20px;
   background-color: #2B8580;
   padding: 40px 40px;

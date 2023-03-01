@@ -1,5 +1,6 @@
 .main {
   display: flex;
+  position: relative;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
@@ -7,8 +8,19 @@
   min-height: 100vh;
 }
 
+.dots {
+  position: absolute;
+  width: 100%;
+  object-fit: cover;
+  top: 50%;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
 .frame {
   padding: 35px 60px;
+  z-index: 5;
   background-color: var(--bg-frame);
   border-radius: 30px;
 }
