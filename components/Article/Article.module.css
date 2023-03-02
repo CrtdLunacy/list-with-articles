@@ -22,12 +22,12 @@
 
 .locate {
   color: var(--text-gray);
-  font: var(--font-m);
+  font: var(--font-m-bold);
   margin-bottom: 10px;
 }
 
 .title {
-  font: var(--font-l);
+  font: var(--font-l-bold);
 }
 
 .artBody {
@@ -47,7 +47,7 @@
 }
 
 .detailsName {
-  font: var(--font-s);
+  font: var(--font-s-bold);
   margin-bottom: 10px;
 }
 
