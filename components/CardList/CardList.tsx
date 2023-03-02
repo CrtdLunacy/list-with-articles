@@ -38,19 +38,20 @@ const CardList = ({data}: CardProps) => {
   }, [data])
 
   const handleClickToShow = () => {
-    setArticles(data);
-    setHideState(true);
+    if(!isMobile) {
+      setArticles(data);
+      setHideState(true);
+    } else {
+      if(articles.length == data.length) {
+        setHideState(true);
+        return;
+      }
+      const newData = data.slice(range, range+8);
+      setRange(prev => prev + 8);
+      setArticles([...articles, ...newData]);
+    }
   }
 
-  const handleClickToShowMobile = () => {
-    if(articles.length == data.length) {
-      setHideState(true);
-      return;
-    }
-    const newData = data.slice(range, range+8);
-    setRange(prev => prev + 8);
-    setArticles([...articles, ...newData]);
-  }
 
   const handleClickToHide = () => {
     setArticles(data.slice(0, 8));
@@ -76,7 +77,7 @@ const CardList = ({data}: CardProps) => {
       {articles.length >= 8 && !hideState && !isMobile &&  (
         <button
           className={styles.left}
-          onClick={isMobile ? handleClickToShow : handleClickToShowMobile}
+          onClick={handleClickToShow}
         >
           ПОКАЗАТЬ ВСЕ
           <span className={styles.right}></span>
@@ -96,7 +97,7 @@ const CardList = ({data}: CardProps) => {
       {isMobile && !hideState && (
         <button
           className={styles.left}
-          onClick={handleClickToShowMobile}
+          onClick={handleClickToShow}
         >
           ПОКАЗАТЬ ЕЩЕ
           <span className={styles.right}></span>
