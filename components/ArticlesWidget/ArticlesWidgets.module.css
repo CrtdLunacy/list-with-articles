@@ -38,6 +38,12 @@
   height: 50px;
 }
 
+.filterClear {
+  width: 100px;
+  font: var(--font-xs-bold);
+  font-size: 12px;
+}
+
 @media only screen and (max-width: 768px) {
   .frame {
     padding: 30px;

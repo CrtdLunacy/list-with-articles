@@ -68,7 +68,7 @@ const ArticlesWidget = ({data}: ArticlesWidgetProps) => {
           onClick={handleDropFilters}
         >
           <Image src={FilterButton} alt={'Filter'} />
-          <p>СБРОСИТЬ ВСЕ фильтры</p>
+          <p className={styles.filterClear}>СБРОСИТЬ ВСЕ ФИЛЬТРЫ</p>
         </button>
       </div>
 
