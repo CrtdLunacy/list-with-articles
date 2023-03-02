@@ -1,6 +1,6 @@
 'use client'
 
-import styles from "@/app/page.module.css";
+import styles from "./ArticlesWidgets.module.css";
 import FilterItem from "@/components/FilterItem/FilterItem";
 import {nanoid} from "nanoid";
 import Image from "next/image";
